@@ -1,0 +1,109 @@
+package Vista;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+public class GestionSocio extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+	private JPanel buttonPane;
+	private JLabel lblNewLabel;
+	private JButton btnAadirSocio;
+	private JButton btnBorrarSocio;
+	private JButton btnModificarSocio;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			GestionSocio dialog = new GestionSocio();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public GestionSocio() {
+		setBounds(100, 100, 450, 300);
+		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		{
+			lblNewLabel = new JLabel("");
+			lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ikaslea\\Desktop\\descarga (1).jpg"));
+		}
+		{
+			buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(contentPanel, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)
+				.addComponent(buttonPane, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(contentPanel, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
+					.addComponent(buttonPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+		);
+		btnAadirSocio = new JButton("A\u00F1adir socio");
+		btnBorrarSocio = new JButton("Borrar socio");
+		btnModificarSocio = new JButton("Modificar socio");
+		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnModificarSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnBorrarSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnAadirSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGap(38)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(btnAadirSocio)
+							.addGap(18)
+							.addComponent(btnBorrarSocio)
+							.addGap(18)
+							.addComponent(btnModificarSocio))
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(40, Short.MAX_VALUE))
+		);
+		contentPanel.setLayout(gl_contentPanel);
+		getContentPane().setLayout(groupLayout);
+	}
+
+}
