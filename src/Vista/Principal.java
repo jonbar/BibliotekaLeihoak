@@ -17,25 +17,21 @@ import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import controlador.*;
+import modelo.*;
+import Vista.*;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	private ControladorSocio controladorSocio;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public ControladorSocio getControladorSocio() {
+		return controladorSocio;
+	}
+
+	public void setControladorSocio(ControladorSocio controladorSocio) {
+		this.controladorSocio = controladorSocio;
 	}
 
 	/**
@@ -57,6 +53,11 @@ public class Principal extends JFrame {
 		});
 		
 		JButton btnSocios = new JButton("Gestion socios");
+		btnSocios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorSocio.abrirVentanaGesSocio();
+			}
+		});
 		
 		JButton btnPrestamos = new JButton("Prestamos");
 		

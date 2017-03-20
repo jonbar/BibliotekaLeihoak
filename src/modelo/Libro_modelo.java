@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Libro_modelo extends Conector{
 
-	public Libro_modelo(String dbIzena) {
-		super(dbIzena);
+	public Libro_modelo() {
+		super();
 	}
 	
 	public ArrayList <Libro> select(){

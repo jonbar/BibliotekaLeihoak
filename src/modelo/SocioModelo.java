@@ -5,10 +5,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Socio_modelo extends Conector{
+import controlador.*;
 
-	public Socio_modelo(String dbIzena) {
-		super(dbIzena);
+public class SocioModelo extends Conector{
+
+	private ControladorSocio controladorSocio;
+	
+	public SocioModelo() {
+		super();
 	}
 	
 	public ArrayList <Socio> select(){

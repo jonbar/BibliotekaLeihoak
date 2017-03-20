@@ -12,9 +12,22 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import controlador.*;
+import modelo.*;
+import Vista.*;
 
 public class GestionSocio extends JDialog {
 
+	private ControladorSocio controladorSocio;
+
+	public ControladorSocio getControladorSocio() {
+		return controladorSocio;
+	}
+
+	public void setControladorSocio(ControladorSocio controladorSocio) {
+		this.controladorSocio = controladorSocio;
+	}
+	
 	private final JPanel contentPanel = new JPanel();
 	private JPanel buttonPane;
 	private JLabel lblNewLabel;
@@ -23,22 +36,10 @@ public class GestionSocio extends JDialog {
 	private JButton btnModificarSocio;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			GestionSocio dialog = new GestionSocio();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Create the dialog.
 	 */
-	public GestionSocio() {
+	public GestionSocio(Principal principal, boolean modal) {
+		super(principal, modal);
 		setBounds(100, 100, 450, 300);
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -105,5 +106,7 @@ public class GestionSocio extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 		getContentPane().setLayout(groupLayout);
 	}
+
+	
 
 }
