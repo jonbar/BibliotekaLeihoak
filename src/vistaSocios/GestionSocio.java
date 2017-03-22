@@ -1,4 +1,4 @@
-package Vista;
+package vistaSocios;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -14,7 +14,9 @@ import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import controlador.*;
 import modelo.*;
-import Vista.*;
+import vistaSocios.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GestionSocio extends JDialog {
 
@@ -75,7 +77,17 @@ public class GestionSocio extends JDialog {
 					.addComponent(buttonPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		btnAadirSocio = new JButton("A\u00F1adir socio");
+		btnAadirSocio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controladorSocio.abrirVentanaForSocio();
+			}
+		});
 		btnBorrarSocio = new JButton("Borrar socio");
+		btnBorrarSocio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorSocio.abrirVentanaBorrarSocios();
+			}
+		});
 		btnModificarSocio = new JButton("Modificar socio");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(

@@ -1,4 +1,4 @@
-package Vista;
+package vistaSocios;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -19,12 +19,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import controlador.*;
 import modelo.*;
-import Vista.*;
+import vistaSocios.*;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	private ControladorSocio controladorSocio;
+	private ControladorLibro controladorLibro;
+
+	public ControladorLibro getControladorLibro() {
+		return controladorLibro;
+	}
+
+	public void setControladorLibro(ControladorLibro controladorLibro) {
+		this.controladorLibro = controladorLibro;
+	}
 
 	public ControladorSocio getControladorSocio() {
 		return controladorSocio;
@@ -48,7 +57,7 @@ public class Principal extends JFrame {
 		JButton btnLibros = new JButton("Gestion libros");
 		btnLibros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO
+				controladorLibro.abrirVentanaGesLibro();
 			}
 		});
 		

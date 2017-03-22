@@ -14,6 +14,10 @@ public class Libro {
 		this.num_pag = num_pag;
 	}
 	
+	public Libro() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void mostrarInfo(){
 		System.out.println("id: "+ this.id
 				+ " titulo: " + this.titulo

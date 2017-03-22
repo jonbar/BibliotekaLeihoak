@@ -1,4 +1,4 @@
-package Vista;
+package vistaSocios;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

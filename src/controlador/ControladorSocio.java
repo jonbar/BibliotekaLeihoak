@@ -1,10 +1,12 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
-import Vista.*;
 import modelo.Socio;
 import modelo.SocioModelo;
+import vistaSocios.*;
 
 public class ControladorSocio {
 
@@ -12,7 +14,20 @@ public class ControladorSocio {
 	private Principal principal;
 	private FormularioDeSocio formularioDeSocio;
 	private SocioModelo socioModelo;
+	private BorrarSocios borrarSocios;
 	
+	public FormularioDeSocio getFormularioDeSocio() {
+		return formularioDeSocio;
+	}
+	public void setFormularioDeSocio(FormularioDeSocio formularioDeSocio) {
+		this.formularioDeSocio = formularioDeSocio;
+	}
+	public BorrarSocios getBorrarSocios() {
+		return borrarSocios;
+	}
+	public void setBorrarSocios(BorrarSocios borrarSocios) {
+		this.borrarSocios = borrarSocios;
+	}
 	public SocioModelo getSocioModelo() {
 		return socioModelo;
 	}
@@ -39,6 +54,9 @@ public class ControladorSocio {
 		this.formularioDeSocio = formularioSocio;
 	}
 	public void abrirVentanaGesSocio() {
+		this.gestionSocio.setVisible(true);		
+	}
+	public void abrirVentanaForSocio() {
 		this.formularioDeSocio.setVisible(true);		
 	}
 	public void cerrarFormularioDeSocio() {
@@ -60,6 +78,14 @@ public class ControladorSocio {
 	}
 	public void limpiarFormulario() {
 		this.formularioDeSocio.limpiarFormulario();
+	}
+	public void abrirVentanaBorrarSocios() {
+		ArrayList<Socio> socios = socioModelo.select();
+		borrarSocios.rellenarCombobox(socios);
+		this.borrarSocios.setVisible(true);
+	}
+	public void cerrarBorrarSocio() {
+		this.borrarSocios.dispose();
 	}
 	
 }
