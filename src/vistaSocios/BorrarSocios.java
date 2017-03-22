@@ -29,7 +29,7 @@ public class BorrarSocios extends JDialog {
 	private JTextField textFieldID;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
-	private JTextField textField_1;
+	private JTextField textFieldDireccion;
 	private JTextField textFieldPoblacion;
 	private JTextField textFieldProvincia;
 	private JTextField textFieldDNI;
@@ -58,6 +58,18 @@ public class BorrarSocios extends JDialog {
 		JLabel lblSeleccionaElSocio = new JLabel("Socio: ");
 		
 		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (comboBox.getSelectedIndex() == -1){
+					clearTextFields();
+				}else{
+					String datoSocio = (String) comboBox.getSelectedItem();
+					String[] partes = datoSocio.split(":");
+					int idSocio = Integer.parseInt(partes[0]);
+					controladorSocio.rellenarFormularioDeBorradoSocio(idSocio);
+				}
+			}
+		});
 		
 		JPanel panel = new JPanel();
 		
@@ -184,10 +196,10 @@ public class BorrarSocios extends JDialog {
 		textFieldApellido.setEditable(false);
 		textFieldApellido.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEnabled(false);
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
+		textFieldDireccion = new JTextField();
+		textFieldDireccion.setEnabled(false);
+		textFieldDireccion.setEditable(false);
+		textFieldDireccion.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -205,7 +217,7 @@ public class BorrarSocios extends JDialog {
 							.addComponent(lblDireccion)
 							.addGap(12)))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_1)
+						.addComponent(textFieldDireccion)
 						.addComponent(textFieldNombre)
 						.addComponent(textFieldApellido, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
 					.addContainerGap())
@@ -224,7 +236,7 @@ public class BorrarSocios extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDireccion)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
@@ -252,6 +264,17 @@ public class BorrarSocios extends JDialog {
 		}
 	}
 
+	protected void clearTextFields() {
+		this.textFieldID.setText("");
+		this.textFieldNombre.setText("");
+		this.textFieldApellido.setText("");
+		this.textFieldDireccion.setText("");
+		this.textFieldPoblacion.setText("");
+		this.textFieldProvincia.setText("");
+		this.textFieldDNI.setText("");
+		
+	}
+
 	public void rellenarCombobox(ArrayList socios) {
 		Iterator<Socio> iterator = socios.iterator();
 		while(iterator.hasNext()){
@@ -259,5 +282,17 @@ public class BorrarSocios extends JDialog {
 			
 			comboBox.addItem(socio.getId() + ": " +socio.getNombre() + " " + socio.getApellido());
 		}
+		comboBox.setSelectedIndex(-1);
+	}
+
+	public void rellenarCamposDeFormulario(Socio socio) {
+		this.textFieldID.setText(String.valueOf(socio.getId()));
+		this.textFieldNombre.setText(socio.getNombre());
+		this.textFieldApellido.setText(socio.getApellido());
+		this.textFieldDireccion.setText(socio.getDireccion());
+		this.textFieldPoblacion.setText(socio.getPoblacion());
+		this.textFieldProvincia.setText(socio.getProvincia());
+		this.textFieldDNI.setText(socio.getDni());
+		
 	}
 }

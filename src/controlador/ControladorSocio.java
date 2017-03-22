@@ -87,5 +87,9 @@ public class ControladorSocio {
 	public void cerrarBorrarSocio() {
 		this.borrarSocios.dispose();
 	}
+	public void rellenarFormularioDeBorradoSocio(int idSocio) {
+		Socio socio = socioModelo.select(idSocio);
+		borrarSocios.rellenarCamposDeFormulario(socio);
+	}
 	
 }
