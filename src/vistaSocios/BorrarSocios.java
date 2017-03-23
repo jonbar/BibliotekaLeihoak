@@ -15,6 +15,7 @@ import modelo.Socio;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
@@ -247,6 +248,12 @@ public class BorrarSocios extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton Eliminar = new JButton("Eliminar");
+				Eliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						eliminacion();
+						
+					}
+				});
 				Eliminar.setActionCommand("OK");
 				buttonPane.add(Eliminar);
 				getRootPane().setDefaultButton(Eliminar);
@@ -264,6 +271,13 @@ public class BorrarSocios extends JDialog {
 		}
 	}
 
+	protected void eliminacion() {
+		int erantzuna = JOptionPane.showConfirmDialog(this, "¿Estas seguro?");
+		if(erantzuna == JOptionPane.OK_OPTION){
+			controladorSocio.eliminarSocio(Integer.parseInt(textFieldID.getText()));
+		}
+	}
+
 	protected void clearTextFields() {
 		this.textFieldID.setText("");
 		this.textFieldNombre.setText("");
@@ -273,6 +287,11 @@ public class BorrarSocios extends JDialog {
 		this.textFieldProvincia.setText("");
 		this.textFieldDNI.setText("");
 		
+	}
+	
+	public void clearAll(){
+		comboBox.removeAllItems();
+		clearTextFields();
 	}
 
 	public void rellenarCombobox(ArrayList socios) {

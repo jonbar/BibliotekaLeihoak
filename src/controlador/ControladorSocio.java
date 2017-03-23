@@ -91,5 +91,11 @@ public class ControladorSocio {
 		Socio socio = socioModelo.select(idSocio);
 		borrarSocios.rellenarCamposDeFormulario(socio);
 	}
+	public void eliminarSocio(int id) {
+		socioModelo.delete(id);
+		borrarSocios.clearAll();
+		ArrayList<Socio> socios = socioModelo.select();
+		borrarSocios.rellenarCombobox(socios);
+	}
 	
 }
