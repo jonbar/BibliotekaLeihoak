@@ -47,6 +47,22 @@ public class SocioModelo extends Conector{
 			return null;
 	}
 	
+	public ArrayList select(String nombre) {
+		try {
+			Statement st = this.conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from socios where Nombre='" + nombre + "'");
+			rs.next();
+			Socio socio = new Socio(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
+									rs.getString("direccion"), rs.getString("poblacion"),
+									rs.getString("provincia"), rs.getString("dni"));
+//			return socio;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return null;
+	}
+	
 	public void insert(Socio socio) {
 		Statement st;
 		try {

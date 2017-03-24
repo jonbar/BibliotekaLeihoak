@@ -15,7 +15,14 @@ public class ControladorSocio {
 	private FormularioDeSocio formularioDeSocio;
 	private SocioModelo socioModelo;
 	private BorrarSocios borrarSocios;
+	private ConsultaDeSocios consultaDeSocios;
 	
+	public ConsultaDeSocios getConsultaDeSocios() {
+		return consultaDeSocios;
+	}
+	public void setConsultaDeSocios(ConsultaDeSocios consultaDeSocios) {
+		this.consultaDeSocios = consultaDeSocios;
+	}
 	public FormularioDeSocio getFormularioDeSocio() {
 		return formularioDeSocio;
 	}
@@ -46,7 +53,6 @@ public class ControladorSocio {
 	public void setPrincipal(Principal principal) {
 		this.principal = principal;
 	}
-	
 	public FormularioDeSocio getFormularioSocio() {
 		return formularioDeSocio;
 	}
@@ -97,5 +103,15 @@ public class ControladorSocio {
 		ArrayList<Socio> socios = socioModelo.select();
 		borrarSocios.rellenarCombobox(socios);
 	}
-	
+	public void abrirVentanaConsultaDeSocios() {
+		ArrayList<Socio> socios = socioModelo.select();
+		consultaDeSocios.rellenarTabla(socios);
+		this.consultaDeSocios.setVisible(true);
+	}
+	public void rellenarTablaPorNombre() {
+		String nombre = consultaDeSocios.recogerNombre();
+		ArrayList<Socio> socios = socioModelo.select(nombre);
+		
+		
+	}	
 }

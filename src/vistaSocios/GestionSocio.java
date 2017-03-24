@@ -89,16 +89,24 @@ public class GestionSocio extends JDialog {
 			}
 		});
 		btnModificarSocio = new JButton("Modificar socio");
+		
+		JButton btnBuscarSocio = new JButton("Buscar socio");
+		btnBuscarSocio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				controladorSocio.abrirVentanaConsultaDeSocios();
+			}
+		});
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnBuscarSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnModificarSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnBorrarSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnAadirSocio, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_contentPanel.setVerticalGroup(
@@ -111,14 +119,13 @@ public class GestionSocio extends JDialog {
 							.addGap(18)
 							.addComponent(btnBorrarSocio)
 							.addGap(18)
-							.addComponent(btnModificarSocio))
+							.addComponent(btnModificarSocio)
+							.addGap(18)
+							.addComponent(btnBuscarSocio))
 						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(40, Short.MAX_VALUE))
+					.addContainerGap(34, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		getContentPane().setLayout(groupLayout);
 	}
-
-	
-
 }

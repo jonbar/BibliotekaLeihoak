@@ -21,6 +21,7 @@ public class Main {
 		GestionSocio gestionSocio = new GestionSocio(principal, true);
 		FormularioDeSocio formularioSocio = new FormularioDeSocio(gestionSocio, true);
 		BorrarSocios borrarSocios = new BorrarSocios(gestionSocio, true);
+		ConsultaDeSocios consultaDeSocios = new ConsultaDeSocios(gestionSocio, true);
 		GestionLibro gestionLibro = new GestionLibro(principal, true);
 		FormularioLibro formularioLibro = new FormularioLibro(gestionSocio, true);
 		
@@ -29,6 +30,7 @@ public class Main {
 		gestionSocio.setControladorSocio(controladorSocio);
 		formularioSocio.setControladorSocio(controladorSocio);
 		borrarSocios.setControladorSocio(controladorSocio);
+		consultaDeSocios.setControladorSocio(controladorSocio);
 		
 		principal.setControladorLibro(controladorLibro);
 		gestionLibro.setControladorLibro(controladorLibro);
@@ -40,6 +42,7 @@ public class Main {
 		controladorSocio.setFormularioSocio(formularioSocio);
 		controladorSocio.setSocioModelo(SocioModelo);
 		controladorSocio.setBorrarSocios(borrarSocios);
+		controladorSocio.setConsultaDeSocios(consultaDeSocios);
 		
 		controladorLibro.setPrincipal(principal);
 		controladorLibro.setGestionLibro(gestionLibro);
