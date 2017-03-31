@@ -28,6 +28,21 @@ public class LibroModelo extends Conector{
 		return libros;
 	}
 	
+	public Libro select(int id) {
+		try {
+			Statement st = this.conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from libros where id='" + id + "'");
+			rs.next();
+			Libro libro = new Libro(id, rs.getString("titulo"), rs.getString("autor"),
+					rs.getInt("num_pag"));
+			return libro;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return null;
+	}
+	
 	public void insert(Libro libro){
 		try {
 			PreparedStatement ps = this.conexion.prepareStatement("insert into libros (titulo, autor, num_pag) values(?,?,?)");

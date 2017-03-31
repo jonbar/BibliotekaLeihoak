@@ -23,7 +23,8 @@ public class Main {
 		BorrarSocios borrarSocios = new BorrarSocios(gestionSocio, true);
 		ConsultaDeSocios consultaDeSocios = new ConsultaDeSocios(gestionSocio, true);
 		GestionLibro gestionLibro = new GestionLibro(principal, true);
-		FormularioLibro formularioLibro = new FormularioLibro(gestionSocio, true);
+		FormularioLibro formularioLibro = new FormularioLibro(gestionLibro, true);
+		ConsultaDeLibros consultaDeLibros = new ConsultaDeLibros(gestionLibro, true);
 		
 //		Poner controlador a las ventanas
 		principal.setControladorSocio(controladorSocio);
@@ -35,6 +36,7 @@ public class Main {
 		principal.setControladorLibro(controladorLibro);
 		gestionLibro.setControladorLibro(controladorLibro);
 		formularioLibro.setControladorLibro(controladorLibro);
+		consultaDeLibros.setControladorLibro(controladorLibro);
 		
 //		asignar ventanas y modelos al controlador
 		controladorSocio.setPrincipal(principal);
@@ -48,6 +50,7 @@ public class Main {
 		controladorLibro.setGestionLibro(gestionLibro);
 		controladorLibro.setFormularioLibro(formularioLibro);
 		controladorLibro.setLibroModelo(libroModelo);
+		controladorLibro.setConsultaDeLibros(consultaDeLibros);
 		
 		principal.setVisible(true);
 	}

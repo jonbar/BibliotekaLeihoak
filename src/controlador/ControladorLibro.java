@@ -4,6 +4,8 @@ import modelo.*;
 import vistaSocios.*;
 import vistaLibros.*;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import controlador.*;
@@ -14,7 +16,15 @@ public class ControladorLibro {
 	private FormularioLibro formularioLibro;
 	private GestionLibro gestionLibro;
 	private LibroModelo libroModelo;
+	private ConsultaDeLibros consultaDeLibros;
 	
+	
+	public ConsultaDeLibros getConsultaDeLibros() {
+		return consultaDeLibros;
+	}
+	public void setConsultaDeLibros(ConsultaDeLibros consultaDeLibros) {
+		this.consultaDeLibros = consultaDeLibros;
+	}
 	public Principal getPrincipal() {
 		return principal;
 	}
@@ -61,5 +71,14 @@ public class ControladorLibro {
 	public void cerrarVentana() {
 		formularioLibro.limpiarFormulario();
 		formularioLibro.dispose();
+	}
+	public void abrirVentanaConsultaDeLibros() {
+		ArrayList<Libro> libros = libroModelo.select();
+		this.consultaDeLibros.rellenarCombobox(libros);
+		this.consultaDeLibros.setVisible(true);
+	}
+	public void rellenarPorTitulo(int idLiburua) {
+		Libro libro = this.libroModelo.select(idLiburua);
+		this.consultaDeLibros.consultaLibrosRellenarFormulario(libro);
 	}	
 }

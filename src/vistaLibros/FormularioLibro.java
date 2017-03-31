@@ -41,8 +41,8 @@ public class FormularioLibro extends JDialog {
 	 * @param b 
 	 * @param gestionSocio 
 	 */
-	public FormularioLibro(GestionSocio gestionSocio, boolean modal) {
-		super(gestionSocio, modal);
+	public FormularioLibro(GestionLibro gestionLibro, boolean modal) {
+		super(gestionLibro, modal);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
