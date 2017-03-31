@@ -75,10 +75,17 @@ public class ControladorLibro {
 	public void abrirVentanaConsultaDeLibros() {
 		ArrayList<Libro> libros = libroModelo.select();
 		this.consultaDeLibros.rellenarCombobox(libros);
+		
+		ArrayList<String> autores = this.libroModelo.selectAutores();
+		this.consultaDeLibros.rellenarComboboxAutores(autores);
 		this.consultaDeLibros.setVisible(true);
 	}
 	public void rellenarPorTitulo(int idLiburua) {
 		Libro libro = this.libroModelo.select(idLiburua);
 		this.consultaDeLibros.consultaLibrosRellenarFormulario(libro);
-	}	
+	}
+	public void rellenarListaPorAutor(String autor) {
+		ArrayList<Libro> libros = libroModelo.select(autor);
+		this.consultaDeLibros.rellenarListAutor(libros);
+	}
 }

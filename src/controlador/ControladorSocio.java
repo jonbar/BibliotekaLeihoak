@@ -111,7 +111,5 @@ public class ControladorSocio {
 	public void rellenarTablaPorNombre() {
 		String nombre = consultaDeSocios.recogerNombre();
 		ArrayList<Socio> socios = socioModelo.select(nombre);
-		
-		
 	}	
 }

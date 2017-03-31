@@ -43,6 +43,26 @@ public class LibroModelo extends Conector{
 			return null;
 	}
 	
+	public ArrayList<Libro> select(String autor) {
+		ArrayList<Libro> libros = new ArrayList<Libro>();
+		try {
+			Statement st = this.conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from libros where autor='" + autor + "'");
+			while (rs.next()) {
+				Libro libro = new Libro(rs.getInt("id"), rs.getString("titulo"), autor,
+										rs.getInt("num_pag"));
+				libros.add(libro);
+			}
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return libros;
+
+	}
+	
 	public void insert(Libro libro){
 		try {
 			PreparedStatement ps = this.conexion.prepareStatement("insert into libros (titulo, autor, num_pag) values(?,?,?)");
@@ -90,6 +110,22 @@ public class LibroModelo extends Conector{
 			e.printStackTrace();
 		}
 		
+	}
+
+	public ArrayList<String> selectAutores() {
+		try {
+			Statement st = this.conexion.createStatement();
+			ResultSet rs = st.executeQuery("SELECT DISTINCT autor FROM libros");
+			ArrayList<String> autores = new ArrayList<String>();
+			while(rs.next()){
+				autores.add(rs.getString("autor"));
+			}
+			return autores;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
