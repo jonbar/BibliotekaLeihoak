@@ -28,6 +28,22 @@ public class LibroModelo extends Conector{
 		return libros;
 	}
 	
+	public ArrayList <Libro> select(int numMin, int numMax){
+		ArrayList<Libro> libros = new ArrayList<Libro>(); 
+		try {
+			Statement st = this.conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from libros where num_pag >" + numMin + " and num_pag <" + numMax);
+			while(rs.next()){
+				libros.add(new Libro(rs.getInt("id"), rs.getString("titulo"), rs.getString("autor"), rs.getInt("num_pag")));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return libros;
+	}
+	
 	public Libro select(int id) {
 		try {
 			Statement st = this.conexion.createStatement();

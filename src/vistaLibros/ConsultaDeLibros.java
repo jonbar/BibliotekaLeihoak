@@ -7,9 +7,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import controlador.ControladorLibro;
 import modelo.Libro;
+import modelo.Socio;
 import vistaSocios.GestionSocio;
 
 import javax.swing.JTabbedPane;
@@ -29,6 +32,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.JCheckBox;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class ConsultaDeLibros extends JDialog {
 	private JTextField textFieldAutor;
@@ -37,7 +44,11 @@ public class ConsultaDeLibros extends JDialog {
 	private JComboBox comboBoxTitulos;
 	private JComboBox comboBoxAutores;
 	private JList listLibros;
+	private JRadioButton radioButtonMenor100;
+	private JRadioButton radioButtonEntre100y500;
+	private JRadioButton radioButtonMayor500;
 	private JTable tableLibros;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	public ControladorLibro getControladorLibro() {
 		return controladorLibro;
@@ -167,13 +178,32 @@ public class ConsultaDeLibros extends JDialog {
 		JPanel panelNumPag = new JPanel();
 		tabbedPane.addTab("Num. pag.", null, panelNumPag, null);
 		
-		JCheckBox checkBoxMenor100 = new JCheckBox("<100");
+		radioButtonMenor100 = new JRadioButton("<100");
+		radioButtonMenor100.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				radioButtonMenor100ActionPerformed();
+			}
+		});
+		buttonGroup.add(radioButtonMenor100);
 		
-		JCheckBox checkBoxEntre100y500 = new JCheckBox("100 - 500");
 		
-		JCheckBox checkBoxMayor500 = new JCheckBox(">500");
+		radioButtonEntre100y500 = new JRadioButton("100 - 500");
+		radioButtonEntre100y500.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				radioButtonEntre100y500ActionPerformed();
+			}
+		});
+		buttonGroup.add(radioButtonEntre100y500);
+
+		radioButtonMayor500 = new JRadioButton(">500");
+		radioButtonMayor500.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				radioButtonMayor500ActionPerformed();
+			}
+		});
+		buttonGroup.add(radioButtonMayor500);
 		
-		tableLibros = new JTable();
+		JScrollPane scrollPane = new JScrollPane();
 		GroupLayout gl_panelNumPag = new GroupLayout(panelNumPag);
 		gl_panelNumPag.setHorizontalGroup(
 			gl_panelNumPag.createParallelGroup(Alignment.LEADING)
@@ -181,14 +211,14 @@ public class ConsultaDeLibros extends JDialog {
 					.addGroup(gl_panelNumPag.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelNumPag.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(tableLibros, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
 						.addGroup(gl_panelNumPag.createSequentialGroup()
 							.addGap(110)
-							.addComponent(checkBoxMenor100)
+							.addComponent(radioButtonMenor100)
 							.addGap(18)
-							.addComponent(checkBoxEntre100y500)
+							.addComponent(radioButtonEntre100y500)
 							.addGap(18)
-							.addComponent(checkBoxMayor500)))
+							.addComponent(radioButtonMayor500)))
 					.addContainerGap())
 		);
 		gl_panelNumPag.setVerticalGroup(
@@ -196,16 +226,52 @@ public class ConsultaDeLibros extends JDialog {
 				.addGroup(gl_panelNumPag.createSequentialGroup()
 					.addGap(18)
 					.addGroup(gl_panelNumPag.createParallelGroup(Alignment.BASELINE)
-						.addComponent(checkBoxMenor100)
-						.addComponent(checkBoxEntre100y500)
-						.addComponent(checkBoxMayor500))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tableLibros, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+						.addComponent(radioButtonMenor100)
+						.addComponent(radioButtonEntre100y500)
+						.addComponent(radioButtonMayor500))
+					.addGap(7)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
 					.addContainerGap())
 		);
+		
+		tableLibros = new JTable();
+		scrollPane.setViewportView(tableLibros);
 		panelNumPag.setLayout(gl_panelNumPag);
 	}
 
+	protected void radioButtonMayor500ActionPerformed() {
+		if (radioButtonMayor500.isSelected()){
+			rellenarTablaSocios(rellenarArrayLibrosMayor500());
+		}
+	}
+
+	protected void radioButtonEntre100y500ActionPerformed() {
+		if (radioButtonEntre100y500.isSelected()){
+			rellenarTablaSocios(rellenarArrayLibrosEntre100y500());
+		}
+	}
+
+	protected void radioButtonMenor100ActionPerformed() {
+		if (radioButtonMenor100.isSelected()){
+			rellenarTablaSocios(rellenarArrayLibrosMenos100());
+		}
+	}
+
+	private ArrayList<Libro> rellenarArrayLibrosMenos100() {
+		ArrayList<Libro> libros = controladorLibro.getLibroModelo().select(0, 100);
+		return libros;
+	}
+
+	private ArrayList<Libro> rellenarArrayLibrosEntre100y500() {
+		ArrayList<Libro> libros = controladorLibro.getLibroModelo().select(101, 500);
+		return libros;
+	}
+	
+	private ArrayList<Libro> rellenarArrayLibrosMayor500() {
+		ArrayList<Libro> libros = controladorLibro.getLibroModelo().select(501, 1000);
+		return libros;
+	}
+	
 	protected void comboBoxAutoresActionPerformed() {
 		String autor = this.comboBoxAutores.getSelectedItem().toString();
 		controladorLibro.rellenarListaPorAutor(autor);
@@ -233,6 +299,28 @@ public class ConsultaDeLibros extends JDialog {
 //			comboBoxTitulos.addItem(libro.getId() + ": " + libro.getTitulo());
 //		}
 //		this.comboBoxTitulos.setSelectedIndex(-1);
+	}
+	
+	public void rellenarTablaSocios(ArrayList<Libro> libros){
+		//Crear una tabla logica
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		//crear la cabezera
+		Object[] burukoak = {"TITULO", "AUTOR", "NUMERO DE PAGINAS"}; 
+		tableModel.setColumnIdentifiers(burukoak);
+		
+		//Rellellar tabla con socios
+		for (Libro libro : libros){
+			Object[] lerroa = {libro.getTitulo(), libro.getAutor(), libro.getNum_pag()};
+			tableModel.addRow(lerroa);
+		}
+		
+		//Rellenar tabla y darlo formato (Grafico)
+		tableLibros.setModel(tableModel);
+		
+		//Ordenar tabla por campos (Alfabeticamente)
+		TableRowSorter<DefaultTableModel> modeloOrdenado = new TableRowSorter<DefaultTableModel>(tableModel);
+		tableLibros.setRowSorter(modeloOrdenado);
 	}
 
 
