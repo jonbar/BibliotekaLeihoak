@@ -88,4 +88,9 @@ public class ControladorLibro {
 		ArrayList<Libro> libros = libroModelo.select(autor);
 		this.consultaDeLibros.rellenarListAutor(libros);
 	}
+	
+	public void buscarLibrosPorPaginas(int i, int j) {
+		ArrayList<Libro> libros = libroModelo.select(i, j);
+		this.consultaDeLibros.rellenarTablaLibros(libros);
+	}
 }

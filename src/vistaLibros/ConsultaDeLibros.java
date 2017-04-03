@@ -181,7 +181,7 @@ public class ConsultaDeLibros extends JDialog {
 		radioButtonMenor100 = new JRadioButton("<100");
 		radioButtonMenor100.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				radioButtonMenor100ActionPerformed();
+				mostrarSegunRadioButton();
 			}
 		});
 		buttonGroup.add(radioButtonMenor100);
@@ -190,7 +190,7 @@ public class ConsultaDeLibros extends JDialog {
 		radioButtonEntre100y500 = new JRadioButton("100 - 500");
 		radioButtonEntre100y500.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				radioButtonEntre100y500ActionPerformed();
+				mostrarSegunRadioButton();
 			}
 		});
 		buttonGroup.add(radioButtonEntre100y500);
@@ -198,7 +198,7 @@ public class ConsultaDeLibros extends JDialog {
 		radioButtonMayor500 = new JRadioButton(">500");
 		radioButtonMayor500.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				radioButtonMayor500ActionPerformed();
+				mostrarSegunRadioButton();
 			}
 		});
 		buttonGroup.add(radioButtonMayor500);
@@ -239,39 +239,17 @@ public class ConsultaDeLibros extends JDialog {
 		panelNumPag.setLayout(gl_panelNumPag);
 	}
 
-	protected void radioButtonMayor500ActionPerformed() {
-		if (radioButtonMayor500.isSelected()){
-			rellenarTablaSocios(rellenarArrayLibrosMayor500());
+	protected void mostrarSegunRadioButton() {
+		if(radioButtonMenor100.isSelected()){
+			controladorLibro.buscarLibrosPorPaginas(0, 100);
+		}else if(radioButtonEntre100y500.isSelected()){
+			controladorLibro.buscarLibrosPorPaginas(101, 500);
+		}else if(radioButtonMayor500.isSelected()){
+			controladorLibro.buscarLibrosPorPaginas(501, 1000000);
 		}
+		
 	}
 
-	protected void radioButtonEntre100y500ActionPerformed() {
-		if (radioButtonEntre100y500.isSelected()){
-			rellenarTablaSocios(rellenarArrayLibrosEntre100y500());
-		}
-	}
-
-	protected void radioButtonMenor100ActionPerformed() {
-		if (radioButtonMenor100.isSelected()){
-			rellenarTablaSocios(rellenarArrayLibrosMenos100());
-		}
-	}
-
-	private ArrayList<Libro> rellenarArrayLibrosMenos100() {
-		ArrayList<Libro> libros = controladorLibro.getLibroModelo().select(0, 100);
-		return libros;
-	}
-
-	private ArrayList<Libro> rellenarArrayLibrosEntre100y500() {
-		ArrayList<Libro> libros = controladorLibro.getLibroModelo().select(101, 500);
-		return libros;
-	}
-	
-	private ArrayList<Libro> rellenarArrayLibrosMayor500() {
-		ArrayList<Libro> libros = controladorLibro.getLibroModelo().select(501, 1000);
-		return libros;
-	}
-	
 	protected void comboBoxAutoresActionPerformed() {
 		String autor = this.comboBoxAutores.getSelectedItem().toString();
 		controladorLibro.rellenarListaPorAutor(autor);
@@ -301,7 +279,7 @@ public class ConsultaDeLibros extends JDialog {
 //		this.comboBoxTitulos.setSelectedIndex(-1);
 	}
 	
-	public void rellenarTablaSocios(ArrayList<Libro> libros){
+	public void rellenarTablaLibros(ArrayList<Libro> libros){
 		//Crear una tabla logica
 		DefaultTableModel tableModel = new DefaultTableModel();
 		
