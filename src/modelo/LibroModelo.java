@@ -6,7 +6,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import controlador.ControladorLibro;
+import controlador.ControladorPrestamo;
+
 public class LibroModelo extends Conector{
+	
+	ControladorPrestamo controladorPrestamo;
+	ControladorLibro controladorLibro;
+	
+
+	public ControladorPrestamo getControladorPrestamo() {
+		return controladorPrestamo;
+	}
+
+	public void setControladorPrestamo(ControladorPrestamo controladorPrestamo) {
+		this.controladorPrestamo = controladorPrestamo;
+	}
+
+	public ControladorLibro getControladorLibro() {
+		return controladorLibro;
+	}
+
+	public void setControladorLibro(ControladorLibro controladorLibro) {
+		this.controladorLibro = controladorLibro;
+	}
 
 	public LibroModelo() {
 		super();
@@ -57,6 +80,25 @@ public class LibroModelo extends Conector{
 			e.printStackTrace();
 		}
 			return null;
+	}
+	
+	public Libro selectPorTitulo(String titulo){
+		Libro libro = null;
+		try {
+			Statement st = this.conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from libros where titulo='" + titulo + "'");
+			rs.next();
+			libro = new Libro();
+			libro.setId(rs.getInt("id"));
+			libro.setTitulo(rs.getString("titulo"));
+			libro.setAutor(rs.getString("autor"));
+			libro.setNum_pag(rs.getInt("num_pag"));		
+			return libro;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return libro;
 	}
 	
 	public ArrayList<Libro> select(String autor) {

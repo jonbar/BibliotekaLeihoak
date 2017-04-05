@@ -26,6 +26,15 @@ public class Principal extends JFrame {
 	private JPanel contentPane;
 	private ControladorSocio controladorSocio;
 	private ControladorLibro controladorLibro;
+	private ControladorPrestamo controladorPrestamo;
+	
+	public ControladorPrestamo getControladorPrestamo() {
+		return controladorPrestamo;
+	}
+
+	public void setControladorPrestamo(ControladorPrestamo controladorPrestamo) {
+		this.controladorPrestamo = controladorPrestamo;
+	}
 
 	public ControladorLibro getControladorLibro() {
 		return controladorLibro;
@@ -43,9 +52,6 @@ public class Principal extends JFrame {
 		this.controladorSocio = controladorSocio;
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -69,6 +75,11 @@ public class Principal extends JFrame {
 		});
 		
 		JButton btnPrestamos = new JButton("Prestamos");
+		btnPrestamos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPrestamo.abrirVentanaGesPrestamo();
+			}
+		});
 		
 		JLabel lblZornotzaBiblioteka = new JLabel("Zornotza Biblioteka");
 		lblZornotzaBiblioteka.setFont(new Font("Tahoma", Font.BOLD, 24));
