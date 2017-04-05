@@ -49,11 +49,12 @@ public class SocioModelo extends Conector{
 	}
 	
 	public Socio select(int id) {
+		Socio socio = null;
 		try {
 			Statement st = this.conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from socios where id='" + id + "'");
 			rs.next();
-			Socio socio = new Socio((id), rs.getString("nombre"), rs.getString("apellido"),
+			socio = new Socio((id), rs.getString("nombre"), rs.getString("apellido"),
 									rs.getString("direccion"), rs.getString("poblacion"),
 									rs.getString("provincia"), rs.getString("dni"));
 			return socio;
@@ -61,10 +62,11 @@ public class SocioModelo extends Conector{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			return null;
+			return socio;
 	}
 	
-	public ArrayList select(String nombre) {
+	public ArrayList<Socio> select(String nombre) {
+		ArrayList<Socio> socios = null;
 		try {
 			Statement st = this.conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from socios where Nombre='" + nombre + "'");
@@ -72,12 +74,13 @@ public class SocioModelo extends Conector{
 			Socio socio = new Socio(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"),
 									rs.getString("direccion"), rs.getString("poblacion"),
 									rs.getString("provincia"), rs.getString("dni"));
-//			return socio;
+			socios.add(socio);
+			return socios;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			return null;
+			return socios;
 	}
 	
 	public void insert(Socio socio) {
@@ -106,10 +109,10 @@ public class SocioModelo extends Conector{
 	}
 	
 	public int update(Socio socio) {
-		int lineascambiadas;
+		int lineasCambiadas = 0;
 		try {
 			Statement st = super.getConexion().createStatement();
-			lineascambiadas = st.executeUpdate("UPDATE socios "
+			lineasCambiadas = st.executeUpdate("UPDATE socios "
 											 + "SET nombre='"  	 + socio.getNombre()  	+ "'"
 											 + ",apellido='"  + socio.getApellido() 	+ "'"
 											 + ",direccion='" + socio.getDireccion() + "'"
@@ -117,12 +120,12 @@ public class SocioModelo extends Conector{
 											 + ",provincia='" + socio.getProvincia() + "'"
 											 + ",dni='"		 + socio.getDni() 		+ "'"
 											 + " WHERE id=" + socio.getId());
-			return lineascambiadas;
+			return lineasCambiadas;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return lineasCambiadas;
 
 	}
 	

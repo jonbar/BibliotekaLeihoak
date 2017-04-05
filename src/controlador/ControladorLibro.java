@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import controlador.*;
-
 public class ControladorLibro {
 
 	private Principal principal;

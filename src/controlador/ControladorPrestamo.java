@@ -1,11 +1,8 @@
 package controlador;
 
-import java.util.ArrayList;
-
 import modelo.Libro;
 import modelo.LibroModelo;
 import modelo.PrestamoModelo;
-import modelo.Socio;
 import modelo.SocioModelo;
 import vistaPrestamos.GestionPrestamo;
 import vistaPrestamos.RealizarPrestamo;
