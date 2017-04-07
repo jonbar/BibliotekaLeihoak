@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import java.awt.Color;
 
 public class VisualizarPrestamosDeSocio extends JDialog {
 
@@ -53,6 +54,7 @@ public class VisualizarPrestamosDeSocio extends JDialog {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.NORTH);
+		contentPanelBuscarId.setBackground(Color.WHITE);
 		tabbedPane.addTab("Buscar por ID", null, contentPanelBuscarId, null);
 		contentPanelBuscarId.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
