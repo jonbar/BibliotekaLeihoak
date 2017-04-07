@@ -1,6 +1,5 @@
 package modelo;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PrestamoModelo extends Conector {
-
 
 	public ArrayList<Prestamo> select() {
 		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
@@ -31,7 +29,6 @@ public class PrestamoModelo extends Conector {
 		return prestamos;
 
 	}
-
 
 	public Prestamo select(int id_libro, int id_socio, java.util.Date fecha) {
 		try {
@@ -74,20 +71,22 @@ public class PrestamoModelo extends Conector {
 		try {
 			PreparedStatement ps;
 			ps = this.conexion.prepareStatement(
-					"insert into " + "prestamos (id_libro,id_socio,fecha,devuelto)" + " values(?,?,?,?)");
+					"insert into " + "prestamos (id_libro,id_socio,fecha,devuelto) values(?,?,?,?)");
 
 			ps.setInt(1, prestamo.getId_libro()); // Rellena el primer ?
 			ps.setInt(2, prestamo.getId_socio()); // Rellena el segundo ?
 			java.sql.Date fecha_sql = new java.sql.Date(prestamo.getFecha().getTime());
 			ps.setDate(3, fecha_sql); // Rellena el tercer ?
 			ps.setBoolean(4, false); // Rellena el cuarto ?
-			// Al insertar un nuevo prestamo, nunca está devuelto, por eso siempre es false
+			// Al insertar un nuevo prestamo, nunca está devuelto, por eso
+			// siempre es false
 			ps.execute();
-			
-			/* De la otra manera, sin un prepared statement
-			 * Statement st = this.conexion.createStatement();
-			 * st.execute("INSERT INTO `libros`(`titulo`, `autor`, `num_pag`)
-			 * VALUES ('" + libro.getTitulo()+"', '"
+
+			/*
+			 * De la otra manera, sin un prepared statement Statement st =
+			 * this.conexion.createStatement(); st.execute("INSERT INTO
+			 * `libros`(`titulo`, `autor`, `num_pag`) VALUES
+			 * ('" + libro.getTitulo()+"', '"
 			 * +libro.getAutor()+"','"+libro.getNum_pag()+ "')");
 			 */
 		} catch (SQLException e) {
@@ -96,26 +95,45 @@ public class PrestamoModelo extends Conector {
 		}
 	}
 
-
-	public void insert(int idSocio, int idLibro) {
+	public ArrayList<Prestamo> selectPrestamosDeSocio(int idSocio) {
+		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 		try {
 			PreparedStatement ps;
-			ps = this.conexion.prepareStatement(
-					"insert into " + "prestamos (id_libro,id_socio,fecha,devuelto)" + " values(?,?,?,?)");
+			ps = this.conexion.prepareStatement("SELECT libros.*, prestamos.* FROM prestamos join libros on prestamos.id_libro = libros.id where id_socio = ?");
+			ps.setInt(1, idSocio);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Libro libro = new Libro();
+				libro.setId(rs.getInt("id"));
+				libro.setAutor(rs.getString("autor"));
+				libro.setTitulo(rs.getString("titulo"));
+				libro.setNum_pag(rs.getInt("num_pag"));
+				
+				Prestamo prestamo = new Prestamo();
+				prestamo.setFecha(rs.getDate("fecha"));
+				prestamo.setDevuelto(rs.getBoolean(("devuelto")));
+//				prestamo.setId_libro(rs.getInt("id_libro"));
+//				prestamo.setId_socio(rs.getInt("id_socio"));
+				prestamo.setLibro(libro);
+				
+				Socio socio = new Socio();
+				socio.setId(idSocio);
+				prestamo.setSocio(socio);
+				
+				prestamos.add(prestamo);
+			}
+			return prestamos;
+		}
 
-			ps.setInt(1, idLibro); // Rellena el primer ?
-			ps.setInt(2, idSocio); // Rellena el segundo ?
-			Date fecha = new Date();
-			java.sql.Date fecha_sql = new java.sql.Date(fecha.getTime());
-			ps.setDate(3, fecha_sql); // Rellena el tercer ?
-			ps.setBoolean(4, false); // Rellena el cuarto ?
-			// Al insertar un nuevo prestamo, nunca está devuelto, por eso siempre es false
-			ps.execute();
-
-		} catch (SQLException e) {
+		catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return prestamos;
+
 	}
+
 
 }

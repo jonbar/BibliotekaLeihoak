@@ -1,11 +1,16 @@
 package controlador;
 
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import modelo.Libro;
 import modelo.LibroModelo;
+import modelo.Prestamo;
 import modelo.PrestamoModelo;
 import modelo.SocioModelo;
 import vistaPrestamos.GestionPrestamo;
 import vistaPrestamos.RealizarPrestamo;
+import vistaPrestamos.VisualizarPrestamosDeSocio;
 import vistaSocios.Principal;
 
 public class ControladorPrestamo {
@@ -17,7 +22,14 @@ public class ControladorPrestamo {
 	private LibroModelo libroModelo;
 	private RealizarPrestamo realizarPrestamo;
 	private GestionPrestamo gestionPrestamo;
+	private VisualizarPrestamosDeSocio visualizarPrestamosDeSocio;
 	
+	public VisualizarPrestamosDeSocio getVisualizarPrestamosDeSocio() {
+		return visualizarPrestamosDeSocio;
+	}
+	public void setVisualizarPrestamosDeSocio(VisualizarPrestamosDeSocio visualizarPrestamosDeSocio) {
+		this.visualizarPrestamosDeSocio = visualizarPrestamosDeSocio;
+	}
 	public SocioModelo getSocioModelo() {
 		return socioModelo;
 	}
@@ -66,13 +78,38 @@ public class ControladorPrestamo {
 	public void abrirVentanaRealizarPrestamo() {
 		this.realizarPrestamo.setVisible(true);
 	}
-	public void crearPrestamo(int idSocio, int idLibro) {
-		prestamoModelo.insert(idSocio, idLibro);
-	}
+
 	public void recogerLibro(String tituloLibro, int idSocio) {
-		Libro libro = libroModelo.selectPorTitulo(tituloLibro);
-		int id = libro.getId();
 		
-		prestamoModelo.insert(idSocio, id);
+		if (this.socioModelo.select(idSocio) != null){
+			//SELECT hecho para conseguir el id del libro
+			Libro libro = libroModelo.selectPorTitulo(tituloLibro);
+			int idLibro = libro.getId();
+			
+			//prestamo creado para pasarselo al INSERT
+			Prestamo prestamo = new Prestamo();
+			prestamo.setId_libro(idLibro);
+			prestamo.setId_socio(idSocio);
+			prestamo.setFecha(new Date());
+			prestamo.setDevuelto(false);
+			
+			//Prestamo pasado al insert
+			prestamoModelo.insert(prestamo);
+			JOptionPane.showMessageDialog(this.realizarPrestamo, "Prestamo realizado", "Prestamo", JOptionPane.INFORMATION_MESSAGE);
+			
+		}else{
+			this.realizarPrestamo.remarcarError();
+			JOptionPane.showMessageDialog(this.realizarPrestamo, "Error");
+		}
+		//Limpiar TextFields
+		realizarPrestamo.limpiar();
+	}
+	public void abrirVentanaVisualizarPrestamosDeSocio() {
+		this.visualizarPrestamosDeSocio.setVisible(true);
+	}
+	public void buscarPrestamosPorSocio(int idSocio) {
+		ArrayList<Prestamo> prestamos = prestamoModelo.selectPrestamosDeSocio(idSocio);
+		
+		this.visualizarPrestamosDeSocio.rellenarTablaPrestamos(prestamos);
 	}
 }

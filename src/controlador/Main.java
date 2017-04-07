@@ -5,6 +5,7 @@ import modelo.*;
 import vistaLibros.*;
 import vistaPrestamos.GestionPrestamo;
 import vistaPrestamos.RealizarPrestamo;
+import vistaPrestamos.VisualizarPrestamosDeSocio;
 import vistaSocios.*;
 
 public class Main {
@@ -34,6 +35,7 @@ public class Main {
 		
 		GestionPrestamo gestionPrestamo = new GestionPrestamo(principal, true);
 		RealizarPrestamo realizarPrestamo = new RealizarPrestamo(gestionPrestamo, true);
+		VisualizarPrestamosDeSocio visualizarPrestamosDeSocio = new VisualizarPrestamosDeSocio(gestionPrestamo, true);
 		
 //		Poner controlador a las ventanas
 		principal.setControladorSocio(controladorSocio);
@@ -50,6 +52,7 @@ public class Main {
 		principal.setControladorPrestamo(controladorPrestamo);
 		gestionPrestamo.setControladorPrestamo(controladorPrestamo);
 		realizarPrestamo.setControladorPrestamo(controladorPrestamo);
+		visualizarPrestamosDeSocio.setControladorPrestamo(controladorPrestamo);
 		
 //		asignar ventanas y modelos al controlador
 		controladorSocio.setPrincipal(principal);
@@ -71,6 +74,7 @@ public class Main {
 		controladorPrestamo.setSocioModelo(socioModelo);
 		controladorPrestamo.setGestionPrestamo(gestionPrestamo);
 		controladorPrestamo.setRealizarPrestamo(realizarPrestamo);
+		controladorPrestamo.setVisualizarPrestamosDeSocio(visualizarPrestamosDeSocio);
 		
 		principal.setVisible(true);
 	}

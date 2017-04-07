@@ -1,6 +1,7 @@
 package vistaPrestamos;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -23,6 +24,8 @@ import java.util.Iterator;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class RealizarPrestamo extends JDialog {
 
@@ -51,6 +54,12 @@ public class RealizarPrestamo extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
 		textFieldSocio = new JTextField();
+		textFieldSocio.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				textFieldSocio.setBackground(Color.white);
+			}
+		});
 		
 		textFieldLibro = new JTextField();
 		textFieldLibro.setToolTipText("");
@@ -125,11 +134,19 @@ public class RealizarPrestamo extends JDialog {
 	}
 
 	protected void hacerPrestamo() {
+		//Recoger informacion de los textFields para pasarle al controlador
 		int idSocio = Integer.parseInt(textFieldSocio.getText());
 		String tituloLibro = textFieldLibro.getText();
 		controladorPrestamo.recogerLibro(tituloLibro, idSocio);
-		
+	}
+
+	public void limpiar() {
+		//Poner los textFields en blanco
 		textFieldSocio.setText("");
 		textFieldLibro.setText("");
+	}
+	
+	public void remarcarError(){
+		textFieldSocio.setBackground(Color.RED);
 	}
 }

@@ -48,6 +48,8 @@ public class SocioModelo extends Conector{
 		return socios;
 	}
 	
+	
+	
 	public Socio select(int id) {
 		Socio socio = null;
 		try {
@@ -59,10 +61,8 @@ public class SocioModelo extends Conector{
 									rs.getString("provincia"), rs.getString("dni"));
 			return socio;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 			return socio;
+		}
 	}
 	
 	public ArrayList<Socio> select(String nombre) {

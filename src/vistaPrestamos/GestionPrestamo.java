@@ -15,6 +15,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class GestionPrestamo extends JDialog {
 
@@ -42,20 +43,30 @@ public class GestionPrestamo extends JDialog {
 				controladorPrestamo.abrirVentanaRealizarPrestamo();
 			}
 		});
+		JButton btnConsultarPrestamos = new JButton("Consultar prestamos");
+		btnConsultarPrestamos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controladorPrestamo.abrirVentanaVisualizarPrestamosDeSocio();
+			}
+		});
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnCrearPrestamo)
-					.addContainerGap(325, Short.MAX_VALUE))
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnCrearPrestamo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnConsultarPrestamos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(307, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGap(52)
 					.addComponent(btnCrearPrestamo)
-					.addContainerGap(143, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnConsultarPrestamos)
+					.addContainerGap(109, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
